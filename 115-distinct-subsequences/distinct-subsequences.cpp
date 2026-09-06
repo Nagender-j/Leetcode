@@ -1,32 +1,29 @@
 class Solution {
 public:
-    vector<vector<unsigned int>>dp;
     int solve(string s, string t, int i, int j) {
-        for(int i = 0 ; i <= s.size(); i++) {
-            for(int j = 0; j <= t.size(); j++) {
-                if(j == 0) {
-                    dp[i][j] = 1;
-                    continue;
-                }
-                
-                if(i == 0) {
-                    dp[i][j] = 0;
-                    continue;
-                }
-                 
-                
-                if(s[i-1] == t[j-1]) {
-                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
-                } else {
-                    dp[i][j] =  dp[i-1][j];
-                }
-            }
+        int m = s.size(), n = t.size();
+        vector<unsigned int> prev(n+1), cur(n+1);
+        for(int j = 0; j <= n; j++) {
+            prev[j] = 0;
         }
         
-        return  dp[s.size()][t.size()];
+        prev[0] = 1;
+        cur[0] = 1;
+
+        for(int i = 1 ; i <= s.size(); i++) {
+            for(int j = 1; j <= t.size(); j++) {                
+                if(s[i-1] == t[j-1]) {
+                    cur[j] = prev[j-1] + prev[j];
+                } else {
+                    cur[j] =  prev[j];
+                }
+            }
+            prev = cur;
+        }
+        
+        return  cur[n];
     }
     int numDistinct(string s, string t) {
-        dp = vector<vector<unsigned int>>(s.size()+1, vector<unsigned int>(t.size()+1, -1));
         return solve(s,t,s.size(), t.size());
     }
 };
