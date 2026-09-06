@@ -1,24 +1,32 @@
 class Solution {
 public:
-    vector<vector<int>>dp;
+    vector<vector<unsigned int>>dp;
     int solve(string s, string t, int i, int j) {
-        if(j == 0) return 1;
-        if(i == 0) return 0;
-        
-        if(dp[i][j] != -1) return dp[i][j];
-        int res = 0;
-        // equal case
-        if(s[i-1] == t[j-1]) {
-            // take or not take
-            res += solve(s, t, i-1, j-1) + solve(s, t, i-1, j);
-        } else {
-            res += solve(s, t, i-1, j);
+        for(int i = 0 ; i <= s.size(); i++) {
+            for(int j = 0; j <= t.size(); j++) {
+                if(j == 0) {
+                    dp[i][j] = 1;
+                    continue;
+                }
+                
+                if(i == 0) {
+                    dp[i][j] = 0;
+                    continue;
+                }
+                 
+                
+                if(s[i-1] == t[j-1]) {
+                    dp[i][j] = dp[i-1][j-1] + dp[i-1][j];
+                } else {
+                    dp[i][j] =  dp[i-1][j];
+                }
+            }
         }
         
-        return dp[i][j] = res;
+        return  dp[s.size()][t.size()];
     }
     int numDistinct(string s, string t) {
-        dp = vector<vector<int>>(s.size()+1, vector<int>(t.size()+1, -1));
+        dp = vector<vector<unsigned int>>(s.size()+1, vector<unsigned int>(t.size()+1, -1));
         return solve(s,t,s.size(), t.size());
     }
 };
