@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[1001][1001];
+    vector<vector<int>>dp;
     int solve(string s, string t, int i, int j) {
         if(j == 0) return 1;
         if(i == 0) return 0;
@@ -18,7 +18,7 @@ public:
         return dp[i][j] = res;
     }
     int numDistinct(string s, string t) {
-        memset(dp, -1, sizeof(dp));
+        dp = vector<vector<int>>(s.size()+1, vector<int>(t.size()+1, -1));
         return solve(s,t,s.size(), t.size());
     }
 };
