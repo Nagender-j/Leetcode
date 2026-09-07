@@ -2,6 +2,21 @@ class Solution {
 public:
     int mod = 1e9+7;
     int distinctSubseqII(string s) {
+
+        // intuition 
+        /*
+        dp[i] = all distinctSubseqII from s[0..i]
+       
+       lets consider caba
+        for first a it's, subsequences before  = '',c, so total subsequences with a
+         = '', c, a, ac
+        
+        but for next a, all the subsequences  which were used by first a will be duplicated
+        if we use them again my second a , so we just remove all those subsequences formed by first a 
+        
+        
+        
+        */
         int n = s.size();
         vector<int>last(26, -1);
         vector<int>dp(n+1, 0);
@@ -9,7 +24,7 @@ public:
         
         for(int i=1; i <=n; i++) {
             // dp[i-1] %= mod;
-            dp[i] = (dp[i-1]%mod)*2;
+            dp[i] = dp[i-1]*2;
             dp[i] %= mod;
             int charPos = s[i-1] - 'a';
             if(last[charPos] != -1) {
@@ -18,7 +33,7 @@ public:
             if(dp[i] < 0) dp[i] += mod;
             last[charPos] = i-1;
         }
-        
+
         dp[n]--;
         if(dp[n] < 0) dp[n] += mod;
         
