@@ -15,12 +15,14 @@ public:
             if(last[charPos] != -1) {
                 dp[i] -= (dp[last[charPos]] % mod);
             }
-            
-            if(dp[i] <= 0) dp[i] += mod;
-
+            if(dp[i] < 0) dp[i] += mod;
             last[charPos] = i-1;
         }
+        
+        dp[n]--;
+        if(dp[n] < 0) dp[n] += mod;
+        
 
-        return dp[n] -1 ;
+        return dp[n];
     }
 };
