@@ -67,8 +67,7 @@ class Solution {
         }
 
         // All common elements were equal
-        return a;
-        // return a.indices.size() < b.indices.size() ? a : b;
+        return a.indices.size() < b.indices.size() ? a : b;
     }
 
 
