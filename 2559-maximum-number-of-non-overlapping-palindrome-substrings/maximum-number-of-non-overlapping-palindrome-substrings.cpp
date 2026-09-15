@@ -15,7 +15,19 @@ public:
         return dp[l][r] = isPalindrome(l+1, r-1, s);
 
     } 
+
     int maxPalindromes(string s, int k) {
+        /*
+         1. get all palindromes 
+         2. then it is just max number of non overlapping intervals
+         lets say intervals are [(1 3), (2, 5), (1,5) .....]
+         then sort them by their end time and take the non overlapping overlapping one 
+         greedy works here because taking earliest end will leave room for more numbers later 
+
+         so we take earliest possible end 
+        
+        */
+        
         memset(dp, -1, sizeof(dp));
         int n = s.size();
 
@@ -32,6 +44,8 @@ public:
 
 
     int getAllPalindromes(int n, int k,string s) {
+        // just fix the j and see if there is any i, which gives me palindrome 
+        // if yes then update the prev accoringly such that next palindrom won't overlap with prev
         int cnt = 0;
         int prev = -1;
         for(int j = k-1; j < n ; j++) {
