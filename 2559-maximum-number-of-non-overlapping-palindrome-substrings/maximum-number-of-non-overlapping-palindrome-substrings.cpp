@@ -34,8 +34,8 @@ public:
         int cnt = 0;
         int prev = -1;
         for(int j = k-1; j < n ; j++) {
-            for(int i = j; i > prev ; i--) {
-                if(j-i+1 < k) continue;
+            for(int i = j-k+1; i > prev ; i--) {
+                // if(j-i+1 < k) continue;
                 if(dp[i][j] == 1) {
                     cnt++;
                     prev = j;
