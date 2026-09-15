@@ -5,8 +5,9 @@ struct interval {
 class Solution {
 public:
     int dp[2001][2001];
+    // compute all palindromes 
     int isPalindrome(int l, int r, string &s) {
-        if(l >= r) return 1;
+        if(l > r) return 1;
         
         if(dp[l][r] != -1) return dp[l][r];
 
@@ -20,7 +21,7 @@ public:
 
         for(int i = 0; i < n; i++) {
             for(int j = i; j < n ; j++) {
-                dp[i][j] = isPalindrome(i, j, s);
+                isPalindrome(i, j, s);
             }
         }
 
