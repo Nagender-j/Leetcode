@@ -2,66 +2,50 @@ class Solution {
 public:
     vector<string> maxNumOfSubstrings(string s) {
         int n = s.size();
-
-        // 1. Find first and last occurrence of every character
-        vector<int> first(26, n);
-        vector<int> last(26, -1);
-
-        for (int i = 0; i < n; i++) {
-            int c = s[i] - 'a';
-            first[c] = min(first[c], i);
-            last[c] = i;
+        vector<int>first(26, n), last(26, -1);
+        for(int i = 0 ; i < n; i++) {
+            char c = s[i];
+            int idx = c - 'a';
+            first[idx] = min(first[idx], i);
+            last[idx] = i;
         }
 
-        // 2. Generate valid minimal intervals
-        vector<pair<int, int>> intervals;
+        vector<pair<int,int>> intervals;
+        for(int i = 0 ; i < 26; i++) {
+            int start = first[i];
+            int end = last[i];
+            if(start == n) continue;
+            bool possible = true;
 
-        for (int c = 0; c < 26; c++) {
-            if (last[c] == -1)
-                continue;
-
-            int l = first[c];
-            int r = last[c];
-            bool valid = true;
-
-            for (int i = l; i <= r; i++) {
-                int x = s[i] - 'a';
-
-                // This character started before our interval.
-                // Therefore this interval cannot be valid.
-                if (first[x] < l) {
-                    valid = false;
+            for(int j = start; j <= end; j++) {
+                int insideChar = s[j] - 'a';
+                if(first[insideChar] < start) {
+                    possible = false;
                     break;
                 }
 
-                // We must include all occurrences of x.
-                r = max(r, last[x]);
+                end = max(end, last[insideChar]);
             }
-
-            if (valid) {
-                intervals.push_back({l, r});
+            
+            if(possible) {
+                intervals.push_back({start, end});
             }
         }
 
-        // 3. Interval scheduling:
-        //    Pick intervals that finish earliest.
-        sort(intervals.begin(), intervals.end(),
-             [](const pair<int, int>& a,
-                const pair<int, int>& b) {
-                 return a.second < b.second;
-             });
-
-        vector<string> ans;
+        sort(intervals.begin(), intervals.end(), [&](auto p, auto q) {
+            return p.second < q.second;
+        });
 
         int prevEnd = -1;
-
-        for (auto [l, r] : intervals) {
-            if (l > prevEnd) {
-                ans.push_back(s.substr(l, r - l + 1));
+        vector<string>res;
+        for(auto [l, r] : intervals) {
+            if(l > prevEnd ) {
+                string itr = s.substr(l,r-l+1);
+                res.push_back(itr);
                 prevEnd = r;
             }
         }
 
-        return ans;
+        return res;
     }
 };
