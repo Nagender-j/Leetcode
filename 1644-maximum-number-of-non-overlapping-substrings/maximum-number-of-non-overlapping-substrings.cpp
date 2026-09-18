@@ -2,7 +2,7 @@ class Solution {
 public:
     vector<string> maxNumOfSubstrings(string s) {
         int n = s.size();
-        vector<int>first(26, n), last(26, -1);
+        vector<int>first(26, n+1), last(26, -1);
         for(int i = 0 ; i < n; i++) {
             char c = s[i];
             int idx = c - 'a';
@@ -14,7 +14,7 @@ public:
         for(int i = 0 ; i < 26; i++) {
             int start = first[i];
             int end = last[i];
-            if(start == n) continue;
+            if(start == n+1) continue;
             bool possible = true;
 
             for(int j = start; j <= end; j++) {
