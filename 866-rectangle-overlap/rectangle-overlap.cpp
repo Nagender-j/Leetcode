@@ -7,6 +7,6 @@ public:
       int xOverlap = max(x1A, x1B) < min(x2A, x2B);
       int yOverlap = max(y1A, y1B) < min(y2A, y2B);
 
-      return xOverlap *1LL* yOverlap > 0;
+      return xOverlap * yOverlap > 0;
     }
 };
