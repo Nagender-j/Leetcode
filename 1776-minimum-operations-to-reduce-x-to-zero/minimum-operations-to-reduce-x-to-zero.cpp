@@ -4,7 +4,7 @@ public:
         int n = a.size();
         vector<int>suffix(n+1, 0);
 
-        map<int,int> suffixSumIdx;
+        unordered_map<int,int> suffixSumIdx;
         for(int i = n-1; i >= 0; i--) {
             suffix[i] = suffix[i+1] + a[i];
             if(suffixSumIdx.count(suffix[i]) == 0) {
