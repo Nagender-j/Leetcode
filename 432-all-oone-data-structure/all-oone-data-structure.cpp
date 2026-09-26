@@ -35,11 +35,6 @@ public:
     string getMaxKey() {
        if(tail == NULL) return "";
        string s = *(tail->keys.begin()); 
-       cout<<"THIS is high freq : "<< tail->freq<<endl;
-       for(auto i : tail->keys) {
-        cout<<i<< " ";
-       }
-       cout<<endl;
        return s;
     }
     
