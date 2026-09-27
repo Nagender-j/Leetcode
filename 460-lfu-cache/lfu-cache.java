@@ -27,15 +27,6 @@ class LRUManager {
         location = new HashMap<>();
     }
 
-//    void print() {
-//        System.out.print("THIS IS LRU\n");
-//        Node node = head;
-//        while(node != null) {
-//            System.out.print( node.key +" ");
-//            node = node.next;
-//        }
-//    }
-
     public boolean isLruEmpty() {
         return head==null && tail==null;
     }
@@ -68,7 +59,6 @@ class LRUManager {
         node.next = head;
         if(head != null) {
             head.prev = node;
-            // System.out.println("inserting at head: " + head.value + ": value" + node.value);
         } else {
             tail = node;
         }
@@ -148,21 +138,7 @@ class LFUCache {
         this.freqMap = new HashMap<>();
     }
 
-//    void print() {
-////        System.out.print("THIS IS LFU : \n");
-//        LFUNode node = head;
-//        while(node != null) {
-////            System.out.println("LFUNode : freq : " +node.freq);
-////            System.out.println("Corresponding LRU: ");
-////            node.manager.print();
-////            System.out.println("\n_______________");
-//            node = node.next;
-//        }
-////
-////        System.out.println("  *************      ");
-//    }
     public int get(int key) {
-//        print();
         if(!freqMap.containsKey(key)) {
             return -1;
         }
@@ -175,7 +151,6 @@ class LFUCache {
 
         int value = temp.getValue();
         removeKey(key, node);
-        // moveToNextFreqNode
         moveToNextFreqNode(key, node.freq, value);
 
         return value;
@@ -187,12 +162,6 @@ class LFUCache {
       
     }
 
-//    void printFreqMap() {
-//        System.out.println("THIS IS FM");
-//        for(Map.Entry<Integer, LFUNode> e : location.entrySet()) {
-//            System.out.println(e.getKey() + " :" + e.getValue() + " : " + e.getValue().freq);
-//        }
-//    }
     public void put(int key, int value) {
 
         if(freqMap.containsKey(key)) {
@@ -207,12 +176,9 @@ class LFUCache {
         }
 
         insertFirstElement(key, value);
-//        printFreqMap();
-//        print();
     }
 
     private void createHead(int key, int freq, int value) {
-        System.out.println(String.format("Creating LFU head for key : %d , value : %d , freq: %d", key, value, freq));
         LFUNode node = new LFUNode(freq);
         node.manager.addToLru(key, value);
         location.put(freq, node);
@@ -309,7 +275,7 @@ class LFUCache {
         int evictedKey = node.manager.evict();
 
         freqMap.remove(evictedKey);
-        System.out.println("evicted : "+ evictedKey);
+        // System.out.println("evicted : "+ evictedKey);
         if(node.manager.isLruEmpty()) {
             deleteNode(node);
         }
