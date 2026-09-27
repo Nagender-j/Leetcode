@@ -1,33 +1,46 @@
 class Solution {
 public:
     string reverseParentheses(string s) {
-        stack<char> st;
-        string cur = "";
+        stack<string> st;
         for(char c : s) {
             if(c == ')') {
-                vector<char> chars;
-                while(st.size() && st.top() != '(') {
-                    char top = st.top(); st.pop();
-                    chars.push_back(top);
+    
+                vector<string> stStrings;
+                while(st.size() && st.top()[0] != '(') {
+                    string top = st.top(); st.pop();
+                    stStrings.push_back(top);
                 }
                 if(st.size() != 0) {
                     st.pop();
                 }
-                for(int i = 0; i < chars.size(); i++) {
-                    st.push(chars[i]);
+                
+                string cur = "";
+                for(int i = stStrings.size() -1 ; i >= 0; i--) {
+                    cur += stStrings[i];
                 }
+                reverse(cur.begin(), cur.end());
+                st.push(cur);
+                
             } else {
-                st.push(c);
+                string t = "";
+                t.push_back(c);
+                st.push(t);
+                // cout<<t<<endl;
+                // cout<<to_string(c)<<endl;
             }
         } 
         
         string res = "";
-        while(st.size()) {
-            res += st.top();
-            st.pop();
-        }
-
-        reverse(res.begin(), res.end());
-        return res;
+         vector<string> stStrings;
+                while(st.size() ) {
+                    string top = st.top(); st.pop();
+                    stStrings.push_back(top);
+                }
+         string cur = "";
+                for(int i = stStrings.size() -1 ; i >= 0; i--) {
+                    cur += stStrings[i];
+                }
+        // reverse(res.begin(), res.end());
+        return cur;
     }
 };
