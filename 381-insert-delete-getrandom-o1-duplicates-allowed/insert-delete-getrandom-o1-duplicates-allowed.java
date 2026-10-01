@@ -53,7 +53,11 @@ class RandomizedCollection {
         }
        
         
-        int idx= m.get(val).stream().toList().get(0);
+        int idx = -1;
+        for(int i : m.get(val)) {
+            idx = i;
+            break;
+        }
         m.get(val).remove(idx);
      
         if(m.get(val).isEmpty())
