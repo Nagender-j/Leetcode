@@ -29,7 +29,7 @@ class Solution {
         if(root.val == 1) one=1;
         if(root.val == 0 && left == 0 && right == 0) {
             // System.out.println("ENTERED here" + root.val);
-            root = null;
+            // root = null;
         } 
         return one +left+right;
 
