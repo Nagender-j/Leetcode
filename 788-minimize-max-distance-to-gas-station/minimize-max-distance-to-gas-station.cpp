@@ -8,9 +8,7 @@ public:
             curK += ceil(count)-1;
 
         }
-        // if(curK <= k) {
-        //     cout<<"valid mid : "<<mid<<endl;
-        // }
+        
         return curK <= k;
     }
     double minmaxGasDist(vector<int>& stations, int k) {
