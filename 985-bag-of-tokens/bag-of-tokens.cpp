@@ -11,13 +11,13 @@ public:
             if(power >= a[i]) {
                 power -= a[i];
                 coins++;
-                cout<<"increamented at i : "<<i<<endl;
+                // cout<<"increamented at i : "<<i<<endl;
                 i++;
             } else {
                 if(coins > 0 && i+1 < j) {
                     power += a[j];
                     coins--;
-                    cout<<"decremented at j :"<<j<<endl;
+                    // cout<<"decremented at j :"<<j<<endl;
                     j--;
                 } else {
                     break;
