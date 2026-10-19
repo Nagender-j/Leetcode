@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int dp[2001][2001];
+    vector<vector<int>>dp;
     bool match(string &s, string &p, int m, int n) {
         
         if(m == 0) {
@@ -35,7 +35,7 @@ public:
     }
     bool isMatch(string s, string p) {
         int m = s.size(), n = p.size();
-        memset(dp, -1, sizeof(dp));
+        dp =  vector<vector<int>>(m+1, vector<int>(n+1, -1));
         return match(s, p, s.size(), p.size());
     }
 };
