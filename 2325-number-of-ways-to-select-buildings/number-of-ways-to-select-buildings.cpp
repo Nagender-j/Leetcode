@@ -1,30 +1,33 @@
 class Solution {
 public:
-    long long dp[100001][4][3];
-    long long solve(int i, int cnt, string &s, char prevChoosen) {
-
-        if(i == 0) {
-            if(cnt == 0) return 1;
-            return 0;
+    long long numberOfWays(string s) {
+        int n = s.size();
+        int totalZeros = 0;
+        for(char c : s) {
+            if(c == '0') {
+                totalZeros++;
+            }
         }
 
-        if(cnt < 0) return 0;
-
-        int idx = prevChoosen - '0';
-        // cout<< idx<<endl;
-        if(dp[i][cnt][idx] != -1) return dp[i][cnt][idx];
+        int totalOnes = n - totalZeros;
+        int zerosBefore = 0;
+        int onesBefore = 0;
         long long res = 0;
-        if(prevChoosen != s[i-1]) {
-            res += solve(i-1, cnt-1, s, s[i-1]) + solve(i-1, cnt, s, prevChoosen);
-        } else {
-            res += solve(i-1, cnt, s, prevChoosen);
-        }       
+        
+        for(int i = 0; i < n; i++) {
+            if(s[i] == '1') {
+                int zerosAfter = totalZeros - zerosBefore;
+                res += zerosBefore*1LL*zerosAfter;
+                onesBefore++;
+            } else {
+                int onesAfter = totalOnes - onesBefore;
+                res += onesBefore * 1LL * onesAfter;
+                zerosBefore++;
+            }
 
-        return dp[i][cnt][idx] = res;
+            
+        }
 
-    }
-    long long numberOfWays(string s) {
-        memset(dp, -1,sizeof(dp));
-        return solve(s.size(), 3, s, '2');
+        return  res;
     }
 };
