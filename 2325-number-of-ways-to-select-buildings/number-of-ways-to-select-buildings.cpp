@@ -1,6 +1,6 @@
 class Solution {
 public:
-    long long dp[100001][5][4];
+    long long dp[100001][4][3];
     long long solve(int i, int cnt, string &s, char prevChoosen) {
 
         if(i == 0) {
