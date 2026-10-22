@@ -2,7 +2,7 @@ class Leaderboard {
 public:
     //map<score, set<id>>
     map<int, set<int>> scoreIds;
-    map<int, int> idToScore;
+    unordered_map<int, int> idToScore;
     Leaderboard() {
         
     }
