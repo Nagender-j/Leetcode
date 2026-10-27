@@ -19,9 +19,7 @@ public:
             vector<int> primes = valid.second;
             int newMask = setAllPrimesPositions(mask, primes);
             ways +=  solve(i-1, nums, mask);
-            ways %= MOD;
             ways += freq[nums[i-1]] *1LL* solve(i-1, nums, newMask);
-            ways %=MOD;
         } else {
             ways =  solve(i-1, nums, mask);
         }
