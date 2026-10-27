@@ -2,7 +2,7 @@ class Solution {
 public:
     unordered_map<int,int> primePosition;
     int MOD = 1e9+7;
-    map<pair<int,int>, int> mp;
+    int dp[31][1<<10];
     unordered_map<int,int> freq;
     int solve(int i, vector<int>& nums, int mask) {
         if(i == 0) {
@@ -11,7 +11,7 @@ public:
             return 0;
         }
 
-       if(mp.find({i,mask})!=mp.end()) return mp[{i,mask}];
+       if(dp[i][mask] != -1) return dp[i][mask];
         long long ways = 0;
         pair<bool, vector<int>> valid = isValid(nums[i-1], mask);
         if(valid.first) {
@@ -26,7 +26,7 @@ public:
 
         ways %= MOD;
 
-        return mp[{i, mask}] = ways;
+        return dp[i][mask] = ways;
     }
     /*
     2 3 5 7 11 13 17 19 23 29
@@ -104,7 +104,7 @@ public:
 
         vector<int> nums(temp.begin(), temp.end());
 
-        // cout<< cntOfOne<<endl;
+        memset(dp, -1, sizeof(dp));
         long long res = solve(nums.size(), nums, 0);
         
         for(int i = 0 ; i < cntOfOne; i++) {
