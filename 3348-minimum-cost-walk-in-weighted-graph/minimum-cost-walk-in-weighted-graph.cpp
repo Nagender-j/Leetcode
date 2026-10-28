@@ -3,7 +3,7 @@ public:
     vector<int> parent, size, bitwiseAnd;
     void init(int n) {
         parent.assign(n+1, -1);
-        bitwiseAnd.assign(n+1, -1);
+        bitwiseAnd.assign(n+1, (1<<30)-1);
         for(int i = 0 ;i <n ;i++) {
             parent[i] = i;
         }
@@ -19,13 +19,8 @@ public:
     void Union(int a, int b, int wt) {
         int pa = find(a), pb = find(b);
 
-        if(pa == pb) {
-            if(bitwiseAnd[pa] == -1) {
-                bitwiseAnd[pa] = wt;
-            } else {
-                bitwiseAnd[pa] &= wt;
-            }
-
+        if(pa == pb) { 
+            bitwiseAnd[pa] &= wt;
             return;
         }
 
@@ -33,15 +28,8 @@ public:
 
         parent[pb] = pa;
         size[pa] += size[pb];
-
-        if(bitwiseAnd[pa] == -1) {
-            bitwiseAnd[pa] = wt;
-         } else {
-            bitwiseAnd[pa] &= wt;
-            if(bitwiseAnd[pb] != -1) {
-                bitwiseAnd[pa] &= bitwiseAnd[pb];
-            }
-         }
+        bitwiseAnd[pa]  = bitwiseAnd[pa] & wt & bitwiseAnd[pb];
+      
  
     }
     vector<int> minimumCost(int n, vector<vector<int>>& edges, vector<vector<int>>& query) {
