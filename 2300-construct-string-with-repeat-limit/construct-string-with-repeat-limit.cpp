@@ -7,7 +7,7 @@ public:
         }
 
 
-        priority_queue<pair<char,int>> pq;
+        stack<pair<char,int>> pq;
         for(auto &[ch, f] : freq) {
             pq.push({ch, f});
         }
@@ -38,13 +38,16 @@ public:
             res += second.first;
             first.second -= min(first.second, mxRepeatLimit);
             second.second -= 1;
+
+            
+            if(second.second != 0) {
+                pq.push(second);
+            }
+            
             if(first.second != 0) {
                 pq.push({first.first, first.second});
             }
 
-            if(second.second != 0) {
-                pq.push(second);
-            }
         }
         
         return res;
