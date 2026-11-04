@@ -20,7 +20,7 @@ public:
             i++;
         }
 
-        cout<< res<<endl;
+        // cout<< res<<endl;
         res = res.substr(i);
         if(res == "") res = "0";
         return res;
