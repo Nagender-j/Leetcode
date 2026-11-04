@@ -49,9 +49,9 @@ void merge(vector<int> a, vector<int> b) {
             
             // cout<<" printing a : b for cntFromNums1 : "<< cntFromNums1 << " and cntFromNums2 : "<< cntFromNums2<<endl; 
             vector<int> a = getIelementsFrom(nums1, cntFromNums1), b =  getIelementsFrom(nums2, cntFromNums2);
-            cout<<"sizes of a b :"<<a.size() << " "<<b.size()<<endl;
-            print(a);
-            print(b);
+            // cout<<"sizes of a b :"<<a.size() << " "<<b.size()<<endl;
+            // print(a);
+            // print(b);
             
             merge(a,b);
         }
