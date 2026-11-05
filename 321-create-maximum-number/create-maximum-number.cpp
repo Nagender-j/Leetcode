@@ -1,76 +1,67 @@
 class Solution {
 public:
     vector<int>res;
-void merge(vector<int> a, vector<int> b) {
+void merge(vector<int> &a, vector<int> &b) {
     int m = a.size(), n = b.size();
 
-    vector<int> temp;
+    vector<int> temp(m+n);
+    int  k = 0;
     int i = 0, j = 0;
 
     while(i < m && j < n) {
-
-        // Compare remaining suffixes
-        bool bGreater = lexicographical_compare(
-            a.begin() + i, a.end(),
-            b.begin() + j, b.end()
-        );
-
-        if(bGreater) {
-            temp.push_back(b[j++]);
+        bool isAgreater = isAGreaterThanB(a, b, i, j);
+        if(!isAgreater) {
+            temp[k++] = b[j++];
         } else {
-            temp.push_back(a[i++]);
+            temp[k++] = a[i++];
         }
     }
 
     while(i < m) {
-        temp.push_back(a[i++]);
+        temp[k++] = a[i++];
     }
-
     while(j < n) {
-        temp.push_back(b[j++]);
+        temp[k++] = b[j++];
     }
 
-    // Compare with current maximum
-    if(res.empty() ||
-       lexicographical_compare(
-           res.begin(), res.end(),
-           temp.begin(), temp.end()
-       )) {
+    if(isAGreaterThanB(temp, res, 0, 0)) {
         res = temp;
-    }
+    } 
 }
+
+    bool isAGreaterThanB(vector<int>& a, vector<int>&b, int i, int j) {
+        while(i < a.size() && j < b.size()) {
+            if(a[i] > b[j]) return true;
+            if(a[i] < b[j]) return false;
+
+            i++;
+            j++;
+        }
+
+        if(i < a.size()) return true;
+
+        return false;
+    }
     vector<int> maxNumber(vector<int>& nums1, vector<int>& nums2, int k) {
         int m = nums1.size(), n = nums2.size();
         for(int i = 0; i <= m; i++) {
             int cntFromNums1 = i, cntFromNums2 = k - i;
             if(nums2.size() < cntFromNums2) {
-                continue;
+                continue; // no sufficient items in nums2 for this combination 
             }
-            
-            // cout<<" printing a : b for cntFromNums1 : "<< cntFromNums1 << " and cntFromNums2 : "<< cntFromNums2<<endl; 
-            vector<int> a = getIelementsFrom(nums1, cntFromNums1), b =  getIelementsFrom(nums2, cntFromNums2);
-            // cout<<"sizes of a b :"<<a.size() << " "<<b.size()<<endl;
-            // print(a);
-            // print(b);
-            
+
+            vector<int> a = getIelementsFrom(nums1, cntFromNums1), b =  getIelementsFrom(nums2, cntFromNums2);            
             merge(a,b);
         }
 
         return res;
     }
 
-    void print(vector<int> &a) {
-        for(int i : a) {
-            cout<<i<<" ";
-        }
-
-        cout<<endl;
-    }
-
-    vector<int> getIelementsFrom(vector<int> &a, int cnt) {
+    vector<int> getIelementsFrom(vector<int> &a, int i) {
         vector<int> temp;
         int n = a.size();
-        int k = n - cnt; // i need to delete n-i elements from a to take i candidates;
+        int k = n - i; // i need to delete n-i elements from a to take i candidates;
+        // just remove k digits pattern , but looking for maxNumber instead of small
         for(int i = 0 ; i < a.size(); i++) {
             while(temp.size() && (temp.back() < a[i]) && k) {
                 temp.pop_back();
