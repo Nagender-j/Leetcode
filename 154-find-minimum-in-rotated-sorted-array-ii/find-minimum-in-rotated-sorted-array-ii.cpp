@@ -21,7 +21,7 @@ public:
         
         */
         
-        while(low < high) {
+        while(low <= high) {
             int mid = low +(high-low)/2;
             if(a[mid] < a[high]) {
                 high = mid;
