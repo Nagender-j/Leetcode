@@ -13,7 +13,16 @@ public:
     int getRotatedIdx(vector<int> &a) {
         int low = 0, high = a.size()-1;
         int n = a.size();
+        /*
+         intuition 
+         [4,5,6,7,0,1,2],
+         4 to 7 is sorted -> first half
+         0 to 2 is sorted -> second half
+         but 0 is min of left and right,
+         so if a[mid] > a[high] then mid is first half
+         else if a[mid] < a[high] then mid is in second half
         
+        */
         if(n == 1) return 0;
         while(low <= high) {
             int mid = low +(high-low)/2;
