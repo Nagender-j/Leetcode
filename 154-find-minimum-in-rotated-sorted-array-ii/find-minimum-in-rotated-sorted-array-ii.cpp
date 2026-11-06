@@ -21,27 +21,19 @@ public:
         
         */
         
-        while(low <= high) {
+        while(low < high) {
             int mid = low +(high-low)/2;
-            if(a[mid] <= a[(mid+1)%n] && a[mid] < a[(mid-1+n)%n]) {
-                return mid;
+            if(a[mid] < a[high]) {
+                high = mid;
             } else if(a[mid] > a[high]) {
                 low = mid+1;
             } else  {
-                high = mid-1;
+                high--;
             }
         
         
         }
-
-        // it comes here if array has duplicates and it couldn't optimally eliminate search space
-        for(int i = 0 ; i < n; i++) {
-            if(a[i] <= a[(i+1)%n] && a[i] < a[(i-1+n)%n]) {
-                return i;
-            } 
-        }
-
         
-        return 0;
+        return low;
     }
 };
