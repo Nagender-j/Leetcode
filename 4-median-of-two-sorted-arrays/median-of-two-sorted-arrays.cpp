@@ -84,8 +84,8 @@ public:
                   secondNum = nums2[r2];
                }
                
-               cout<<"mid : "<<mid<<endl;
-               cout<<firstNum << " "<<secondNum<<endl;
+            //    cout<<"mid : "<<mid<<endl;
+            //    cout<<firstNum << " "<<secondNum<<endl;
                if((m+n)%2 == 0) {
                  return (double)(firstNum+secondNum) * 0.5;
                }
@@ -97,9 +97,7 @@ public:
                 high = mid-1;
             } else {
                 low = mid+1;
-            }
-
-            
+            } 
 
         }
 
