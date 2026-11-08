@@ -2,7 +2,7 @@ class Solution {
 public:
     bool isValid(int mid, int k, int m, int n) {
         int cntK = 0;
-        // cout<<"This is mid "<< mid<<endl;
+  
         for(int i = 1; i <= m; i++) {
             int row = i;
             int col = n;
@@ -20,13 +20,13 @@ public:
                         high = midCol-1;
                     }
                 }
-                // cout<< j<<endl;
+
                 cntK+= j;
            
             }    
         }
 
-        // cout<<"cntK : " <<cntK<<endl;
+  
         return cntK >= k;
         
     }
