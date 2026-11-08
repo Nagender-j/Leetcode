@@ -1,3 +1,14 @@
+struct state{
+    int costToNode;
+    int node;
+    int cumTime;
+};
+
+struct Compare {
+  bool operator()(const state &a, const state &b) const {
+    return a.costToNode > b.costToNode;
+  }  
+};
 class Solution {
 public:
 
@@ -16,13 +27,13 @@ public:
         vector<vector<int>>cost(n, vector<int>(maxTime+1, inf));
         // pair<int,pair<int,int>>
         
-        priority_queue<array<int,3>, vector<array<int,3>>, greater<array<int,3>>> q;
+        priority_queue<state, vector<state>, Compare> q;
         q.push({passingFees[0], 0, 0});
         cost[0][0] = passingFees[0];
 
         while(!q.empty()) {
           auto item = q.top(); q.pop();
-          int costToNode = item[0], node = item[1], cumTime = item[2];
+          int costToNode = item.costToNode, node = item.node, cumTime = item.cumTime;
          
           if(cost[node][cumTime] < costToNode) continue;
           if(node  == n-1) return costToNode;
