@@ -15,13 +15,14 @@ public:
 
         vector<vector<int>>cost(n, vector<int>(maxTime+1, inf));
         // pair<int,pair<int,int>>
-        priority_queue<pair<int,pair<int,int>>, vector<pair<int,pair<int,int>>>, greater<pair<int,pair<int,int>>>> q;
-        q.push({passingFees[0], {0, 0}});
+        
+        priority_queue<array<int,3>, vector<array<int,3>>, greater<array<int,3>>> q;
+        q.push({passingFees[0], 0, 0});
         cost[0][0] = passingFees[0];
 
         while(!q.empty()) {
           auto item = q.top(); q.pop();
-          int costToNode = item.first, node = item.second.first, cumTime = item.second.second;
+          int costToNode = item[0], node = item[1], cumTime = item[2];
          
           if(cost[node][cumTime] < costToNode) continue;
           if(node  == n-1) return costToNode;
@@ -33,7 +34,7 @@ public:
             if( (cost[child.first][newTime] > costToNode + passingFees[child.first] )) {
                
                 cost[child.first][newTime] = costToNode + passingFees[child.first];
-                q.push({cost[child.first][newTime], {child.first, cumTime+child.second}});
+                q.push({cost[child.first][newTime], child.first, cumTime+child.second});
                 // cout<<"cost : node : cumTime -> "<<cost[child.first] <<" "<< child.first <<" "<< cumTime+child.second<<endl;
             } 
           }
