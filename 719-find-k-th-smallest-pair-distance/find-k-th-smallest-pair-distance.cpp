@@ -5,17 +5,6 @@ public:
         for(int i = 0 ; i < a.size(); i++) {
             int ai = a[i];
             int aj = mid+ai;
-            // int j = i;
-            // int low = i+1, high = a.size()-1;
-            // while(low <= high) {
-            //     int midj = low+(high-low)/2;
-            //     if(a[midj] <= aj) {
-            //         j = midj;
-            //         low = midj+1;
-            //     } else {
-            //         high = midj - 1;
-            //     }
-            // }
             int j = upper_bound(a.begin(), a.end(), aj) - a.begin();
             j--;
            
