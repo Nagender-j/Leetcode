@@ -33,15 +33,15 @@ public:
         // cur root should must cover it 
         if(l == 1 || r == 1) {
             camera++;
-            return 0;
+            return 0; // since we placed camera return 0;
         }
             
         if(l==0 || r == 0) {
-            return 2;
+            return 2; // child already has camera, so return covered
         }
 
         if(parent == NULL) {
-            camera++;
+            camera++; // children are already covered, but node is the root, then we must place a camera, as there is no parent above who will cover this 
         }
         return 1;
         
