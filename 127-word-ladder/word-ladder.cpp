@@ -17,7 +17,9 @@ public:
             while(sz--) {
                 string item = q.front(); q.pop();
                 if(item == endWord) return levels;
-
+                
+                // replace each letter of a word with possible alphabet and see if it not visited and it's
+                // part of words
                  for(int i = 0 ; i < 26; i++) {
                     for(int j = 0; j < item.size(); j++) {
                         string temp = item;
