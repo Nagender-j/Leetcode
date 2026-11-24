@@ -63,7 +63,6 @@ public:
                     adj[i].push_back(j);
                     adj[j].push_back(i);
                     
-                    cout<<a[i]<<" "<<a[j]<<endl;
                 }
             }
         }
@@ -105,12 +104,9 @@ public:
 
         vector<int>vis(n,0),dist(n,0);
         
-        cout<<a[sidx]<<":"<<a[eidx]<<d<<endl;
+       
         bfs(sidx,eidx,vis,dist,adj,d);
- 
-         cout<<endl;
-        for(auto i:dist)
-            cout<<i<<" ";
+        
         return dist[eidx];
 
 
